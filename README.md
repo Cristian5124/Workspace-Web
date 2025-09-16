@@ -72,20 +72,33 @@ Extras:
 mvn clean compile package
 java -cp "target/classes;target/dependency/*" edu.escuelaing.app.Application
 ```
- Accede en: [http://localhost:6000/hello](http://localhost:6000/hello)  
+ Accede en: [http://localhost:6000/hello](http://localhost:8087/hello)  <br><br>
+ <img width="1899" height="189" alt="image" src="https://github.com/user-attachments/assets/5c20fc2d-2e65-425a-8e1a-b05ff756df3f" />
+
+ <img width="1919" height="305" alt="image" src="https://github.com/user-attachments/assets/c0cc4e16-428d-412b-986a-5a17a3a96836" />
+
 
 ### Ejecución con Docker  
 ```bash
 docker-compose up --build
 ```
- Accede en: [http://localhost:8087/hello](http://localhost:8087/hello)  
+ Accede en: [http://localhost:8087/hello](http://localhost:8087/hello)  <br><br>
+ <img width="1916" height="316" alt="image" src="https://github.com/user-attachments/assets/34e670ad-ff08-4e51-abe8-81777b14e72f" />
+ <img width="1542" height="61" alt="image" src="https://github.com/user-attachments/assets/a49c2255-adc2-457a-91e9-896ff7ba08ab" />
+ <img width="1919" height="305" alt="image" src="https://github.com/user-attachments/assets/c0cc4e16-428d-412b-986a-5a17a3a96836" />
+
+
 
 ### Desde Docker Hub  
 ```bash
 docker pull cristian5124/workspace-web:latest
 docker run -d -p 8087:6000 cristian5124/workspace-web:latest
 ```
- Accede en: [http://localhost:8087/hello](http://localhost:8087/hello)  
+ Accede en: [http://localhost:8087/hello](http://localhost:8087/hello)  <br><br>
+ <img width="1900" height="300" alt="image" src="https://github.com/user-attachments/assets/b0722810-0f89-449a-b4be-c6c98fbed270" />
+ <img width="1919" height="305" alt="image" src="https://github.com/user-attachments/assets/c0cc4e16-428d-412b-986a-5a17a3a96836" />
+
+
 
 ---
 
@@ -99,7 +112,7 @@ docker run -d -p 8087:6000 cristian5124/workspace-web:latest
 
 Ejemplo:  
 ```bash
-curl http://localhost:6000/hello
+curl http://localhost:8087/hello
 # Respuesta: Hello Docker!
 ```
 
@@ -126,7 +139,9 @@ docker run -d -p 42000:6000 --name workspace-web-aws cristian5124/workspace-web:
 ```
 
 Acceder en:  
-`http://ec2-3-91-154-108.compute-1.amazonaws.com:42000/hello`  
+`http://ec2-3-91-154-108.compute-1.amazonaws.com:42000/hello`  <br><br>
+<img width="1919" height="255" alt="Screenshot 2025-09-15 232239" src="https://github.com/user-attachments/assets/4a188e8c-4214-413a-ac71-43ca580a2df0" />
+
 
 ---
 
