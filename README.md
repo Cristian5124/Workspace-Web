@@ -171,3 +171,9 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](L
 ## Autor
 
 *Cristian David Polo Garrido* - Desarrollador - [GitHub](https://github.com/Cristian5124)
+
+## Video con despliegues funcionando
+
+https://github.com/user-attachments/assets/c8fc78c2-66a0-44c7-b763-cacdfcadf8fd
+
+
