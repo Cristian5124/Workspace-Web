@@ -77,7 +77,11 @@ mvn clean compile
 java -cp "./target/classes" edu.escuelaing.app.Application
 ```
 
+<img width="1919" height="362" alt="image" src="https://github.com/user-attachments/assets/c4f52bc8-8cb5-4191-abda-65ffef7910a2" />
+
 Accede en: [http://localhost:8080/hello](http://localhost:8080/hello)
+
+<img width="1844" height="299" alt="image" src="https://github.com/user-attachments/assets/c655d1cb-4fa1-4965-9899-c25ceb52ac12" />
 
 ### Ejecución con Docker
 
@@ -89,20 +93,21 @@ docker build -t simple-web-server .
 docker run -p 8080:8080 simple-web-server
 ```
 
+<img width="1915" height="356" alt="image" src="https://github.com/user-attachments/assets/b1ee4af1-46b2-4ac4-be45-bd2945067ad2" />
+
 Accede en: [http://localhost:8080/hello](http://localhost:8080/hello)
 
-### Ejecución en segundo plano
+<img width="1844" height="299" alt="image" src="https://github.com/user-attachments/assets/c655d1cb-4fa1-4965-9899-c25ceb52ac12" />
+
+### Ejecución en Docker Hub
 
 ```bash
-# Ejecutar en modo detached
-docker run -d -p 8080:8080 --name simple-web simple-web-server
-
-# Ver logs
-docker logs simple-web
-
-# Detener contenedor
-docker stop simple-web
+docker pull cristian5124/simple-web-server:latest
+docker run -p 9090:8080 cristian5124/simple-web-server:latest
 ```
+
+<img width="1916" height="1143" alt="image" src="https://github.com/user-attachments/assets/c7fd83a9-a4a4-495a-bab7-2b50c74d390d" />
+
 
 ---
 
@@ -123,21 +128,34 @@ Navegador: [http://localhost:8080/hello](http://localhost:8080/hello)
 
 ---
 
-## Configuración de Puertos
+## Despliegue en AWS EC2
 
-La aplicación utiliza el puerto 8080 por defecto, pero es configurable:
+ 1. Conectar a instancia EC2
 
 ```bash
-# Puerto por defecto (8080)
-docker run -p 8080:8080 simple-web-server
-
-# Puerto personalizado usando variable de entorno
-docker run -p 3000:3000 -e PORT=3000 simple-web-server
-
-# En ejecución local con puerto personalizado
-export PORT=9000
-java -cp "./target/classes" edu.escuelaing.app.Application
+ssh -i "key.pem" ec2-user@<EC2_PUBLIC_IP>
 ```
+
+ 2. Instalar Docker
+```bash
+sudo yum update -y
+sudo yum install docker -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+```
+
+ 3. Ejecutar contenedor
+```bash
+docker run -d -p 8080:8080 --name simple-web-server-aws cristian5124/simple-web-server:latest
+```
+
+ 4. Acceder en:
+`http://ec2-3-91-154-108.compute-1.amazonaws.com:42000/hello`
+---
+
+## Video con Despliegues
+
+
 
 ---
 
