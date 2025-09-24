@@ -146,7 +146,7 @@ sudo usermod -a -G docker ec2-user
 
  3. Ejecutar contenedor
 ```bash
-docker run -d -p 8080:8080 --name simple-web-server-aws cristian5124/simple-web-server:latest
+docker run -d -p 42000:6000 --name simple-web-server-aws cristian5124/simple-web-server:latest
 ```
 
  4. Acceder en:
@@ -155,7 +155,7 @@ docker run -d -p 8080:8080 --name simple-web-server-aws cristian5124/simple-web-
 
 ## Video con Despliegues
 
-
+https://github.com/user-attachments/assets/c8fc78c2-66a0-44c7-b763-cacdfcadf8fd
 
 ---
 
