@@ -14,7 +14,7 @@ import edu.escuelaing.app.http.HttpResponse;
  * Provides elegant shutdown mechanism and thread pool management.
  */
 public class WebServer {
-    private static final int DEFAULT_PORT = 6000;
+    private static final int DEFAULT_PORT = 8080;
     private static final int THREAD_POOL_SIZE = 10;
 
     private final int port;
@@ -76,7 +76,7 @@ public class WebServer {
         serverSocket = new ServerSocket(port);
         running = true;
 
-        System.out.println("Server started on port 8087: http://localhost:8087/hello");
+        System.out.println("Simple web server started on port " + port + ": http://localhost:" + port + "/hello");
 
         Runtime.getRuntime().addShutdownHook(new Thread(this::shutdown));
 
@@ -123,7 +123,6 @@ public class WebServer {
         System.out.println("Shutting down server...");
         running = false;
 
-        // Close server socket
         if (serverSocket != null && !serverSocket.isClosed()) {
             try {
                 serverSocket.close();

@@ -20,16 +20,12 @@ public class Application {
         WebServer server = new WebServer();
         
         try {
-            server.registerController(HelloController.class);
-            
-            System.out.println("Hello Docker Application");
-            System.out.println("  GET  /hello - Returns 'Hello Docker!'");
-            
+            server.registerController(HelloController.class);            
             server.start();
             
         } catch (IOException e) {
             System.err.println("Failed to start server: " + e.getMessage());
-            e.printStackTrace();
+            System.exit(1);
         }
     }
 }

@@ -1,42 +1,41 @@
-# Spring Boot Docker Demo - Taller de Virtualización  
+# Simple Web Server - Taller de Virtualización
 
-Una aplicación web sencilla construida con **Spring Boot**, desplegada en **Docker** y en **AWS EC2**. Incluye un framework web personalizado con anotaciones propias y demuestra el ciclo completo de despliegue moderno.  
+Una aplicación web simple construida con Java, sin frameworks externos, desplegada en Docker y en Amazon AWS EC2.
 
 ![Java](https://img.shields.io/badge/Java-21+-orange.svg)  
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.3-brightgreen.svg)  
+![No Framework](https://img.shields.io/badge/Framework-None-red.svg)  
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue.svg)  
-![AWS](https://img.shields.io/badge/AWS%20EC2-Deployed-yellow.svg)  
 ![License](https://img.shields.io/badge/License-MIT-green.svg)  
-![Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)  
+![Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)
 
 ---
 
-## Resumen del Proyecto  
+## Resumen del Proyecto
 
-Este proyecto implementa una aplicación REST usando **Spring Boot 3.3.3** con **Java 21**, diseñada para ejecutarse en **Docker** y desplegarse en **AWS EC2**.  
-La aplicación permite comprender los fundamentos de **virtualización, containerización y despliegue en la nube**.  
-
----
-
-## Características  
-
-- **Framework Base**: Spring Boot 3.3.3  
-- **Arquitectura**: RESTful Web Services  
-- **Contenedores**: Docker y Docker Compose  
-- **Base de Datos**: MongoDB (via Docker Compose)  
-- **Despliegue**: Local, Docker Hub y AWS EC2  
-- **Concurrencia**: Manejo automático de hilos por Spring Boot  
-- **Apagado Elegante**: Shutdown hooks  
-
-Extras:  
-- **Framework Web Personalizado** (sin Spring MVC)  
-- **Anotaciones Propias**: `@RestController`, `@GetMapping`, `@RequestParam`  
-- **Docker Hub**: Imagen pública `cristian5124/workspace-web`  
-- **Gestión de Puertos**: Configuración flexible (6000 / 8087 / 42000)  
+Este proyecto implementa un servidor web HTTP simple usando Java 21 , sin frameworks externos como Spring Boot. Diseñado para ejecutarse en Docker y demostrar cómo construir aplicaciones web simples.  
+La aplicación permite comprender los fundamentos de servidores HTTP, containerización y desarrollo sin dependencias.
 
 ---
 
-## Arquitectura del Sistema  
+## Características
+
+- Servidor HTTP Personalizado: Implementación propia con `ServerSocket`
+- Endpoint Único: Simple endpoint `/hello` que retorna "Hello World!"
+- Containerización: Docker con configuración optimizada
+- Puerto Estándar: 8080 (configurable vía variable de entorno)
+- Concurrencia: Pool de threads para manejo de múltiples requests
+- Apagado Elegante: Shutdown hooks para cierre limpio
+
+Características técnicas:
+
+- Anotaciones Personalizadas: `@RestController`, `@GetMapping`
+- Arquitectura Simple: Servidor + Controlador + Handler
+- Zero Dependencies: Solo JUnit para testing
+- Gestión de Puertos: Puerto 8080 por defecto, configurable
+
+---
+
+## Arquitectura del Sistema
 
 ```text
 ┌─────────────────────┐    ┌─────────────────┐    ┌──────────────────┐
@@ -59,107 +58,135 @@ Extras:
 
 ---
 
-## Inicio Rápido  
+## Inicio Rápido
 
-### Prerrequisitos  
-- [Java 21+](https://adoptium.net/)  
-- [Maven 3.8+](https://maven.apache.org/)  
-- [Docker](https://docs.docker.com/get-docker/)  
-- [AWS CLI](https://aws.amazon.com/cli/) (opcional)  
+### Prerrequisitos
 
-### Ejecución Local  
+- [Java 21+](https://adoptium.net/)
+- [Maven 3.8+](https://maven.apache.org/)
+- [Docker](https://docs.docker.com/get-docker/)
+- [AWS CLI](https://aws.amazon.com/cli/) (opcional)
+
+### Ejecución Local
+
 ```bash
-mvn clean compile package
-java -cp "target/classes;target/dependency/*" edu.escuelaing.app.Application
+# Compilar el proyecto
+mvn clean compile
+
+# Ejecutar la aplicación
+java -cp "./target/classes" edu.escuelaing.app.Application
 ```
- Accede en: [http://localhost:6000/hello](http://localhost:8087/hello)  <br><br>
- <img width="1899" height="189" alt="image" src="https://github.com/user-attachments/assets/5c20fc2d-2e65-425a-8e1a-b05ff756df3f" />
 
- <img width="1919" height="305" alt="image" src="https://github.com/user-attachments/assets/c0cc4e16-428d-412b-986a-5a17a3a96836" />
+Accede en: [http://localhost:8080/hello](http://localhost:8080/hello)
 
+### Ejecución con Docker
 
-### Ejecución con Docker  
 ```bash
-docker-compose up --build
+# Construir la imagen
+docker build -t simple-web-server .
+
+# Ejecutar el contenedor
+docker run -p 8080:8080 simple-web-server
 ```
- Accede en: [http://localhost:8087/hello](http://localhost:8087/hello)  <br><br>
- <img width="1916" height="316" alt="image" src="https://github.com/user-attachments/assets/34e670ad-ff08-4e51-abe8-81777b14e72f" />
- <img width="1542" height="61" alt="image" src="https://github.com/user-attachments/assets/a49c2255-adc2-457a-91e9-896ff7ba08ab" />
- <img width="1919" height="305" alt="image" src="https://github.com/user-attachments/assets/c0cc4e16-428d-412b-986a-5a17a3a96836" />
 
+Accede en: [http://localhost:8080/hello](http://localhost:8080/hello)
 
+### Ejecución en segundo plano
 
-### Desde Docker Hub  
 ```bash
-docker pull cristian5124/workspace-web:latest
-docker run -d -p 8087:6000 cristian5124/workspace-web:latest
+# Ejecutar en modo detached
+docker run -d -p 8080:8080 --name simple-web simple-web-server
+
+# Ver logs
+docker logs simple-web
+
+# Detener contenedor
+docker stop simple-web
 ```
- Accede en: [http://localhost:8087/hello](http://localhost:8087/hello)  <br><br>
- <img width="1900" height="300" alt="image" src="https://github.com/user-attachments/assets/b0722810-0f89-449a-b4be-c6c98fbed270" />
- <img width="1919" height="305" alt="image" src="https://github.com/user-attachments/assets/c0cc4e16-428d-412b-986a-5a17a3a96836" />
-
-
 
 ---
 
 ## Endpoint
 
-| Método | Endpoint     | Parámetros         | Descripción                  |
-|--------|-------------|--------------------|------------------------------|
-| GET    | `/hello`    | `name` (opcional) | Retorna "Hello Docker!"      |
+| Método | Endpoint | Parámetros | Descripción            |
+| ------ | -------- | ---------- | ---------------------- |
+| GET    | `/hello` | Ninguno    | Retorna "Hello World!" |
 
+Ejemplo:
 
-
-Ejemplo:  
 ```bash
-curl http://localhost:8087/hello
-# Respuesta: Hello Docker!
+curl http://localhost:8080/hello
+# Respuesta: Hello World!
+```
+
+Navegador: [http://localhost:8080/hello](http://localhost:8080/hello)
+
+---
+
+## Configuración de Puertos
+
+La aplicación utiliza el puerto 8080 por defecto, pero es configurable:
+
+```bash
+# Puerto por defecto (8080)
+docker run -p 8080:8080 simple-web-server
+
+# Puerto personalizado usando variable de entorno
+docker run -p 3000:3000 -e PORT=3000 simple-web-server
+
+# En ejecución local con puerto personalizado
+export PORT=9000
+java -cp "./target/classes" edu.escuelaing.app.Application
 ```
 
 ---
 
-## Despliegue en AWS EC2  
-
-1. **Conectar a instancia EC2**  
-```bash
-ssh -i "key.pem" ec2-user@<EC2_PUBLIC_IP>
-```
-
-2. **Instalar Docker**  
-```bash
-sudo yum update -y
-sudo yum install docker -y
-sudo service docker start
-sudo usermod -a -G docker ec2-user
-```
-
-3. **Ejecutar contenedor**  
-```bash
-docker run -d -p 42000:6000 --name workspace-web-aws cristian5124/workspace-web:latest
-```
-
-Acceder en:  
-`http://ec2-3-91-154-108.compute-1.amazonaws.com:42000/hello`  <br><br>
-<img width="1919" height="255" alt="Screenshot 2025-09-15 232239" src="https://github.com/user-attachments/assets/4a188e8c-4214-413a-ac71-43ca580a2df0" />
-
-
----
-
-## Estructura del Proyecto  
+## Estructura del Proyecto
 
 ```text
-spring-docker-demo/
+simple-web-server/
 ├── src/main/java/edu/escuelaing/app/
-│   ├── Application.java              # Clase principal
-│   ├── annotations/                  # Anotaciones personalizadas
-│   ├── controllers/                  # Controladores REST
-│   ├── core/                         # Núcleo del framework
-│   └── http/                         # Utilidades HTTP
-├── target/                           # Binarios compilados
-├── docker-compose.yml                # Configuración multi-contenedor
-├── Dockerfile                        # Imagen Docker
-├── pom.xml                           # Configuración Maven
-└── README.md                         # Documentación
+│   ├── Application.java
+│   ├── annotations/
+│   │   ├── RestController.java
+│   │   ├── GetMapping.java
+│   │   └── RequestParam.java
+│   ├── controllers/
+│   │   └── HelloController.java
+│   ├── core/
+│   │   ├── WebServer.java
+│   │   └── RequestHandler.java
+│   └── http/
+│       ├── HttpRequest.java
+│       └── HttpResponse.java
+├── target/
+├── Dockerfile
+├── pom.xml
+└── README.md
+```
+
+---
+
+## Comandos de Desarrollo
+
+```bash
+# Compilar proyecto
+mvn clean compile
+
+# Ejecutar tests (si los hay)
+mvn test
+
+# Empaquetar aplicación
+mvn package
+
+# Limpiar proyecto
+mvn clean
+
+# Construir imagen Docker
+docker build -t simple-web-server .
+
+# Ver logs de contenedor en tiempo real
+docker logs -f <container_id>
 ```
 
 ---
@@ -170,10 +197,4 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](L
 
 ## Autor
 
-*Cristian David Polo Garrido* - Desarrollador - [GitHub](https://github.com/Cristian5124)
-
-## Video con despliegues funcionando
-
-https://github.com/user-attachments/assets/c8fc78c2-66a0-44c7-b763-cacdfcadf8fd
-
-
+Cristian David Polo Garrido - Desarrollador - [GitHub](https://github.com/Cristian5124)
